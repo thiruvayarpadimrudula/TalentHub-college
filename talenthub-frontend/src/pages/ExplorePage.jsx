@@ -9,7 +9,7 @@ const ExplorePage = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/projects')
+      .get("https://talenthub-college-backend1.onrender.com/api/projects")
       .then((res) => {
         console.log('Fetched Projects:', res.data); // Debug line
         setProjects(res.data);
@@ -20,8 +20,8 @@ const ExplorePage = () => {
   const handleToggleVote = async (id) => {
     const alreadyVoted = upvotedProjects.includes(id);
     const url = alreadyVoted
-      ? `http://localhost:5000/api/projects/${id}/unvote`
-      : `http://localhost:5000/api/projects/${id}/upvote`;
+      ? `https://talenthub-college-backend1.onrender.com/api/projects/${id}/unvote`
+      : `https://talenthub-college-backend1.onrender.com/api/projects/${id}/upvote`;
 
     try {
       const res = await axios.put(url);
@@ -56,10 +56,10 @@ const ExplorePage = () => {
             >
               {project.image && (
                 <img
-  src={`http://localhost:5000/uploads/${project.image}`}
-  alt={project.title}
-/>
-
+                  src={`https://talenthub-college-backend1.onrender.com/uploads/${project.image}`}
+                  alt={project.title}
+                  className="w-full h-48 object-cover rounded-md mb-3"
+                />
               )}
               <h2 className="text-xl font-semibold">{project.title}</h2>
               <p className="text-gray-600 text-sm mt-1">{project.description}</p>
