@@ -45,19 +45,26 @@
 // //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // // });
 // server.js
+// server.js
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import projectRoutes from './routes/projectRoutes.js';
 import path from 'path';
+import projectRoutes from './routes/projectRoutes.js';
 
-const app = express();
 dotenv.config();
+const app = express();
+const __dirname = path.resolve(); // Get directory path
 
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// CORS config
 const allowedOrigins = [
   'https://talenthub-college-frontend1.onrender.com',
-  'http://localhost:3000'
+  'http://localhost:3000',
 ];
 
 app.use(cors({
@@ -68,26 +75,21 @@ app.use(cors({
 }));
 app.options('*', cors());
 
-// Body parser middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Static file serving for uploaded images
-const __dirname = path.resolve();
+// Serve static uploaded images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// 👉 API routes
+// API routes
 app.use('/api/projects', projectRoutes);
 
-// 👉 Serve frontend (React build)
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+// ✅ Serve frontend build
+app.use(express.static(path.join(__dirname, 'build')));
 
-// 👉 Fallback: Serve index.html for any route not handled by the API
+// ✅ Fallback for SPA routes (like /explore)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// 👉 Connect to DB and start server
+// MongoDB connection and server start
 const PORT = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -97,5 +99,4 @@ mongoose.connect(process.env.MONGO_URI, {
   console.log('MongoDB Connected');
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 })
-.catch((err) => console.error(err));
-
+.catch(err => console.error('DB connection error:', err));
