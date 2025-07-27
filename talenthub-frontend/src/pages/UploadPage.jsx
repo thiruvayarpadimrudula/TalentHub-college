@@ -68,5 +68,5 @@ const UploadPage = () => {
     </div>
   );
 };
-export default API;
+// export default API;
 export default UploadPage;
