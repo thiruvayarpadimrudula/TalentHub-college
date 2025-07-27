@@ -77,13 +77,13 @@ router.put('/:id/upvote', async (req, res) => {
     project.upvotes += 1;
     await project.save();
 
-    // Return only upvotes count for consistency
     res.json({ upvotes: project.upvotes });
   } catch (err) {
     console.error('Upvote error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 
 // ✅ PUT /api/projects/:id/unvote
