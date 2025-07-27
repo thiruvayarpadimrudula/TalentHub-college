@@ -55,6 +55,20 @@ router.post('/', upload.single('image'), async (req, res) => {
 });
 
 // ✅ PUT /api/projects/:id/upvote
+// router.put('/:id/upvote', async (req, res) => {
+//   try {
+//     const project = await Project.findById(req.params.id);
+//     if (!project) return res.status(404).json({ message: 'Project not found' });
+
+//     project.upvotes += 1;
+//     await project.save();
+
+//     res.json(project);
+//   } catch (err) {
+//     console.error('Upvote error:', err);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
 router.put('/:id/upvote', async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
@@ -63,12 +77,14 @@ router.put('/:id/upvote', async (req, res) => {
     project.upvotes += 1;
     await project.save();
 
-    res.json(project);
+    // Return only upvotes count for consistency
+    res.json({ upvotes: project.upvotes });
   } catch (err) {
     console.error('Upvote error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // ✅ PUT /api/projects/:id/unvote
 router.put('/:id/unvote', async (req, res) => {
