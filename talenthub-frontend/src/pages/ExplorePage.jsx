@@ -63,9 +63,6 @@ const ExplorePage = () => {
                   alt={project.title}
                   style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
                 />
-              <img
- 
-
               )}
               <h2 className="text-xl font-semibold">{project.title}</h2>
               <p className="text-gray-600 text-sm mt-1">{project.description}</p>
