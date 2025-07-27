@@ -11,7 +11,7 @@ const ExplorePage = () => {
 
   useEffect(() => {
     axios
-      .get('http://talenthub-college-backend1.onrender.com/api/projects')
+      .get('https://talenthub-college-backend1.onrender.com/api/projects')
       .then((res) => {
         console.log('Fetched Projects:', res.data); // Debug line
         setProjects(res.data);
@@ -22,8 +22,8 @@ const ExplorePage = () => {
   const handleToggleVote = async (id) => {
     const alreadyVoted = upvotedProjects.includes(id);
     const url = alreadyVoted
-      ? `http://talenthub-college-backend1.onrender.com/api/projects/${id}/unvote`
-      : `http://talenthub-college-backend1.onrender.com/api/projects/${id}/upvote`;
+      ? `https://talenthub-college-backend1.onrender.com/api/projects/${id}/unvote`
+      : `https://talenthub-college-backend1.onrender.com/api/projects/${id}/upvote`;
 
     try {
       const res = await axios.put(url);
@@ -58,7 +58,7 @@ const ExplorePage = () => {
             >
               {project.image && (
                 <img
-  src={`http://talenthub-college-backend1.onrender.com${project.image.startsWith('/uploads/') ? project.image : `/uploads/${project.image}`}`}
+  src={`https://talenthub-college-backend1.onrender.com${project.image.startsWith('/uploads/') ? project.image : `/uploads/${project.image}`}`}
   alt={project.title}
   style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
 />
