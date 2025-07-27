@@ -37,3 +37,10 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 })
 .catch((err) => console.error(err));
+
+app.use(express.static(path.join(__dirname, 'build'))); // if your build is in 'build'
+
+// Fallback: always return index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
