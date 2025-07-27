@@ -54,15 +54,21 @@ const ExplorePage = () => {
               className="bg-white p-5 rounded-xl shadow hover:shadow-lg transition duration-200"
             >
               {project.image && (
-                <img
-                  src={`https://talenthub-college-backend1.onrender.com${
-                    project.image.startsWith('/uploads/')
-                      ? project.image
-                      : `/uploads/${project.image}`
-                  }`}
-                  alt={project.title}
-                  style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
-                />
+              //   <img
+              //     src={`https://talenthub-college-backend1.onrender.com${
+              //       project.image.startsWith('/uploads/')
+              //         ? project.image
+              //         : `/uploads/${project.image}`
+              //     }`}
+              //     alt={project.title}
+              //     style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
+              //   />
+              // <img
+  src={`https://talenthub-college-backend1.onrender.com${project.image.startsWith('/uploads/') ? project.image : /uploads/${project.image}}`}
+  alt={project.title}
+  style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
+/>
+
               )}
               <h2 className="text-xl font-semibold">{project.title}</h2>
               <p className="text-gray-600 text-sm mt-1">{project.description}</p>
