@@ -8,15 +8,15 @@ import path from 'path';
 
 const app = express();
 dotenv.config();
+const allowedOrigins = [
+  'https://talenthub-college-frontend1.onrender.com',
+  'http://localhost:3000'
+];
 
-// Middlewares
-// app.use(cors({
-//   origin: ['http://localhost:3000', 'https://talenthub-college-frontend1.onrender.com'],
-//   credentials: true
-// }));app.use(express.json());
 app.use(cors({
-  origin: ['https://talenthub-college-frontend1.onrender.com'],
-  methods: ['GET', 'POST'],
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
