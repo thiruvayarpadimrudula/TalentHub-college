@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-const API = axios.create({
-  baseURL: 'https://talenthub-college-backend1.onrender.com/api',
-});
+
 const ExplorePage = () => {
   const [projects, setProjects] = useState([]);
   const [upvotedProjects, setUpvotedProjects] = useState(
@@ -13,7 +11,7 @@ const ExplorePage = () => {
     axios
       .get('https://talenthub-college-backend1.onrender.com/api/projects')
       .then((res) => {
-        console.log('Fetched Projects:', res.data); // Debug line
+        console.log('Fetched Projects:', res.data);
         setProjects(res.data);
       })
       .catch((err) => console.error('Error fetching projects:', err));
@@ -22,12 +20,11 @@ const ExplorePage = () => {
   const handleToggleVote = async (id) => {
     const alreadyVoted = upvotedProjects.includes(id);
     const url = alreadyVoted
-      ? https://talenthub-college-backend1.onrender.com/api/projects/${id}/unvote
-      : https://talenthub-college-backend1.onrender.com/api/projects/${id}/upvote;
+      ? `https://talenthub-college-backend1.onrender.com/api/projects/${id}/unvote`
+      : `https://talenthub-college-backend1.onrender.com/api/projects/${id}/upvote`;
 
     try {
       const res = await axios.put(url);
-
       setProjects((prev) =>
         prev.map((p) => (p._id === id ? { ...p, upvotes: res.data.upvotes } : p))
       );
@@ -58,11 +55,14 @@ const ExplorePage = () => {
             >
               {project.image && (
                 <img
-  src={https://talenthub-college-backend1.onrender.com${project.image.startsWith('/uploads/') ? project.image : /uploads/${project.image}}}
-  alt={project.title}
-  style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
-/>
-
+                  src={`https://talenthub-college-backend1.onrender.com${
+                    project.image.startsWith('/uploads/')
+                      ? project.image
+                      : `/uploads/${project.image}`
+                  }`}
+                  alt={project.title}
+                  style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
+                />
               )}
               <h2 className="text-xl font-semibold">{project.title}</h2>
               <p className="text-gray-600 text-sm mt-1">{project.description}</p>
@@ -83,11 +83,11 @@ const ExplorePage = () => {
                 <span className="text-gray-500 text-sm">Upvotes: {project.upvotes}</span>
                 <button
                   onClick={() => handleToggleVote(project._id)}
-                  className={px-3 py-1 rounded text-sm text-white ${
+                  className={`px-3 py-1 rounded text-sm text-white ${
                     upvotedProjects.includes(project._id)
                       ? 'bg-red-500 hover:bg-red-600'
                       : 'bg-green-500 hover:bg-green-600'
-                  }}
+                  }`}
                 >
                   {upvotedProjects.includes(project._id) ? '🔄 Unvote' : '⬆️ Upvote'}
                 </button>
@@ -99,5 +99,5 @@ const ExplorePage = () => {
     </div>
   );
 };
-// export default API;
+
 export default ExplorePage;
