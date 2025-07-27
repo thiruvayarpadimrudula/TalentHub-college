@@ -1,41 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
-// ✅ Use base API for clean requests
 const API = axios.create({
   baseURL: 'https://talenthub-college-backend1.onrender.com/api',
 });
-
 const ExplorePage = () => {
   const [projects, setProjects] = useState([]);
   const [upvotedProjects, setUpvotedProjects] = useState(
     JSON.parse(localStorage.getItem('upvotedProjects')) || []
   );
 
-  // ✅ Fetch projects from backend
   useEffect(() => {
-    API.get('/projects')
+    axios
+      .get('https://talenthub-college-backend1.onrender.com/api/projects')
       .then((res) => {
-        console.log('Fetched Projects:', res.data);
+        console.log('Fetched Projects:', res.data); // Debug line
         setProjects(res.data);
       })
       .catch((err) => console.error('Error fetching projects:', err));
   }, []);
 
-  // ✅ Handle Upvote / Unvote
   const handleToggleVote = async (id) => {
     const alreadyVoted = upvotedProjects.includes(id);
-    const url = alreadyVoted ? `/projects/${id}/unvote` : `/projects/${id}/upvote`;
+    const url = alreadyVoted
+      ? https://talenthub-college-backend1.onrender.com/api/projects/${id}/unvote
+      : https://talenthub-college-backend1.onrender.com/api/projects/${id}/upvote;
 
     try {
-      const res = await API.put(url); // 🔁 Use API instance here
+      const res = await axios.put(url);
 
-      // 🔄 Update vote count in UI
       setProjects((prev) =>
         prev.map((p) => (p._id === id ? { ...p, upvotes: res.data.upvotes } : p))
       );
 
-      // 🧠 Save vote locally
       const updatedVotes = alreadyVoted
         ? upvotedProjects.filter((pid) => pid !== id)
         : [...upvotedProjects, id];
@@ -62,19 +58,17 @@ const ExplorePage = () => {
             >
               {project.image && (
                 <img
-                  src={`https://talenthub-college-backend1.onrender.com${project.image}`}
-                  alt={project.title}
-                  style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
-                />
+  src={https://talenthub-college-backend1.onrender.com${project.image.startsWith('/uploads/') ? project.image : /uploads/${project.image}}}
+  alt={project.title}
+  style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
+/>
+
               )}
-
-              <h2 className="text-xl font-semibold mt-2">{project.title}</h2>
+              <h2 className="text-xl font-semibold">{project.title}</h2>
               <p className="text-gray-600 text-sm mt-1">{project.description}</p>
-
               {project.tags?.length > 0 && (
                 <p className="text-sm text-blue-500 mt-2">{project.tags.join(', ')}</p>
               )}
-
               {project.link && (
                 <a
                   href={project.link}
@@ -85,16 +79,15 @@ const ExplorePage = () => {
                   🔗 View Project
                 </a>
               )}
-
               <div className="flex items-center justify-between mt-4">
                 <span className="text-gray-500 text-sm">Upvotes: {project.upvotes}</span>
                 <button
                   onClick={() => handleToggleVote(project._id)}
-                  className={`px-3 py-1 rounded text-sm text-white ${
+                  className={px-3 py-1 rounded text-sm text-white ${
                     upvotedProjects.includes(project._id)
                       ? 'bg-red-500 hover:bg-red-600'
                       : 'bg-green-500 hover:bg-green-600'
-                  }`}
+                  }}
                 >
                   {upvotedProjects.includes(project._id) ? '🔄 Unvote' : '⬆️ Upvote'}
                 </button>
@@ -106,5 +99,5 @@ const ExplorePage = () => {
     </div>
   );
 };
-
+// export default API;
 export default ExplorePage;
