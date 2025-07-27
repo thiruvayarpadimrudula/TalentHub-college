@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+const API = axios.create({
+  baseURL: 'https://talenthub-college-backend1.onrender.com/api',
+});
 const ExplorePage = () => {
   const [projects, setProjects] = useState([]);
   const [upvotedProjects, setUpvotedProjects] = useState(
@@ -97,5 +99,5 @@ const ExplorePage = () => {
     </div>
   );
 };
-
+export default API;
 export default ExplorePage;
