@@ -99,5 +99,5 @@ const ExplorePage = () => {
     </div>
   );
 };
-export default API;
+// export default API;
 export default ExplorePage;
