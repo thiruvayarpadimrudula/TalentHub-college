@@ -2,6 +2,7 @@
   "name": "talenthub-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://talenthub-college-frontend1.onrender.com",
   "dependencies": {
     "@react-oauth/google": "^0.12.2",
     "@testing-library/dom": "^10.4.0",
