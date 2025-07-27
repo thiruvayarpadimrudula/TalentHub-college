@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const API = axios.create({
+  baseURL: 'https://talenthub-college-backend1.onrender.com/api',
+});
 
 const UploadPage = () => {
   const [name, setName] = useState('');
@@ -65,5 +68,5 @@ const UploadPage = () => {
     </div>
   );
 };
-
+export default API;
 export default UploadPage;
