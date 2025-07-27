@@ -26,7 +26,7 @@ const UploadPage = () => {
     }
 
     try {
-      const res = await axios.get("https://talenthub-college-backend1.onrender.com/api/projects", formData, {
+      const res = await axios.post('http://talenthub-college-backend1.onrender.com/api/projects', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
