@@ -19,6 +19,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
+app.options('*', cors()); // Allow pre-flight across all routes
+
 
 // Static files - VERY IMPORTANT
 const __dirname = path.resolve();
