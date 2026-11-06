@@ -8,14 +8,17 @@ const ExplorePage = () => {
   );
 
   useEffect(() => {
-    axios
-      .get('https://talenthub-college-backend1.onrender.com/api/projects')
-      .then((res) => {
-        console.log('Fetched Projects:', res.data);
-        setProjects(res.data);
-      })
-      .catch((err) => console.error('Error fetching projects:', err));
-  }, []);
+  axios
+    .get('https://talenthub-college-backend1.onrender.com/api/projects')
+    .then((res) => {
+      console.log('Fetched Projects:', res.data);
+
+      setProjects(
+        Array.isArray(res.data) ? res.data : res.data.projects
+      );
+    })
+    .catch((err) => console.error('Error fetching projects:', err));
+}, []);
 
   const handleToggleVote = async (id) => {
     const alreadyVoted = upvotedProjects.includes(id);
